@@ -64,6 +64,9 @@
         ],
         "updateDB" : [
             "php bin/console app:updateDB"
+        ],
+        "server" : [
+          "php bin/console server:run --env=prod"
         ]
     },
     "extra": {
