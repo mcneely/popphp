@@ -53,13 +53,14 @@
             "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::installRequirementsFile",
             "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::prepareDeploymentTarget"
         ],
-        "setupDB" : [
+        "buildDB" : [
             "php bin/console doctrine:database:create",
             "php bin/console doctrine:schema:update --force",
             "php bin/console app:updateDB"
         ],
-        "upgradeDB" : [
-            "php bin/console doctrine:schema:update --force"
+        "updateSchema" : [
+            "php bin/console doctrine:schema:update --force",
+            "php bin/console app:updateDB"
         ],
         "updateDB" : [
             "php bin/console app:updateDB"
