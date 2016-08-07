@@ -28,12 +28,13 @@
         "sensio/distribution-bundle": "^5.0",
         "sensio/framework-extra-bundle": "^3.0.2",
         "incenteev/composer-parameter-handler": "^2.0",
-        "guzzlehttp/guzzle": "~6.0",
-        "twbs/bootstrap": "^3.3"
+        "guzzlehttp/guzzle": "~6.0"
     },
     "require-dev": {
         "sensio/generator-bundle": "^3.0",
-        "symfony/phpunit-bridge": "^3.0"
+        "symfony/phpunit-bridge": "^3.0",
+        "twbs/bootstrap": "^3.3",
+        "components/jquery": "^3.1"
     },
     "scripts": {
         "post-install-cmd": [
@@ -51,6 +52,17 @@
             "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::installAssets",
             "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::installRequirementsFile",
             "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::prepareDeploymentTarget"
+        ],
+        "setupDB" : [
+            "php bin/console doctrine:database:create",
+            "php bin/console doctrine:schema:update --force",
+            "php bin/console app:updateDB"
+        ],
+        "upgradeDB" : [
+            "php bin/console doctrine:schema:update --force"
+        ],
+        "updateDB" : [
+            "php bin/console app:updateDB"
         ]
     },
     "extra": {

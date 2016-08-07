@@ -1,0 +1,41 @@
+{% macro showProject(project) %}
+    <div id="project-{{ project.getId }}" class="project">
+        <div class="row name" data-toggle="collapse"  data-target="#project-{{ project.getId }} .details">
+            <div class="col-md-12">{{  project.getName }}</div>
+        </div>
+        <div class="details collapse">
+            <div class="row"><div class="col-md-12">{{ project.getDescription }}</div></div>
+            <div class="row"><div class="col-md-12"><a href="{{ project.getHtmlUrl }}">{{ project.getHtmlUrl }}</a></div></div>
+            <div class="row">
+                <div class="col-md-4"><span>Created:</span> {{ project.getCreatedAt }}</div>
+                <div class="col-md-4"><span>Last Push:</span> {{ project.getPushedAt }}</div>
+            </div>
+            <div class="row">
+                <div class="col-md-4"><span>Stars:</span> {{ project.getStargazersCount }}</div>
+                <div class="col-md-4"><span>Repo Id:</span> {{ project.getId }}</div>
+            </div>
+        </div>
+    </div>
+{% endmacro %}
+{% import _self as macros %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Popular PHP Projects</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="{{ asset('bundles/app/css/bootstrap.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('bundles/app/css/bootstrap-theme.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('bundles/app/css/popphp.css') }}">
+    <script src="{{ asset('bundles/app/js/jquery.min.js') }}"></script>
+    <script src="{{ asset('bundles/app/js/bootstrap.min.js') }}"></script>
+</head>
+<body>
+<h2 class="text-center">Popular PHP Projects on Github</h2>
+<div id="projectContainer" class="container-fluid">
+{% for project in projects %}
+{{ macros.showProject(project) }}
+{% endfor %}
+</div>
+</body>
+</html>
