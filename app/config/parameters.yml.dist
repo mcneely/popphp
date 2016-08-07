@@ -12,4 +12,3 @@ parameters:
 
     # A secret key that's used to generate certain security-related tokens
     secret:            ThisTokenIsNotSoSecretChangeIt
-    github_url: https://api.github.com/search/repositories?q=language:php&sort=stars&order=desc
