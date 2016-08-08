@@ -9,11 +9,13 @@
 namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-use Doctrine\Common\Util\Inflector;
 
 /**
+ * Class that binds doctrine to the database.
  * @ORM\Entity
  * @ORM\Table(name="project")
+ * Since we're using magic method getters and setters,
+ * the following satisfies the IDE syntax highlighting.
  * @method integer getId()
  * @method setId(integer $id)
  * @method string getDescription()
@@ -25,42 +27,49 @@ use Doctrine\Common\Util\Inflector;
  * @method integer getStargazersCount)
  * @method setStargazersCount(integer $stargazersCount)
  */
-class Project
+class Project extends Generic
 {
-
-    private $dateFormat = 'm/d/Y g:i a';
+    /**
+     * @var string
+     */
+    protected $dateFormat = 'm/d/Y g:i a';
     /**
      * @ORM\Column(type="bigint")
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="NONE")
+     * @var integer
      */
-    private $id;
+    protected $id;
     /**
      * @ORM\Column(type="string", length=255)
+     * @var string
      */
-    private $name;
+    protected $name;
     /**
      * @ORM\Column(type="string",length=255)
+     * @var string
      */
-    private $htmlUrl;
+    protected $htmlUrl;
     /**
      * @ORM\Column(type="datetime")
      * @var \DateTime
      */
-    private $createdAt;
+    protected $createdAt;
     /**
      * @ORM\Column(type="datetime")
      * @var \DateTime
      */
-    private $pushedAt;
+    protected $pushedAt;
     /**
      * @ORM\Column(type="text")
+     * @var string
      */
-    private $description;
+    protected $description;
     /**
      * @ORM\Column(type="integer")
+     * @var integer
      */
-    private $stargazersCount;
+    protected $stargazersCount;
 
     /**
      * @param string $createdAt
@@ -94,45 +103,4 @@ class Project
         return $this->pushedAt->format($this->dateFormat);
     }
 
-    /**
-     * "Magic" Method the sets up generic "get" getters and "set" setters.
-     *
-     * @param $method
-     * @param $arguments
-     * @return mixed
-     */
-    public function __call($method, $arguments)
-    {
-        $action = substr($method, 0, 3);
-        $name = Inflector::camelize(substr($method, 3));
-        $method = $action . ucfirst($name);
-
-        if(in_array($action, ['get', 'set'])) {
-            if (method_exists($this, $method)) {
-                return ($arguments && 'get' !== $action) ? call_user_func_array([$this, $method], $arguments) : $this->{$method}();
-            }
-
-            if (property_exists($this, $name)) {
-                if ('set' == $action) {
-                    $this->$name = $arguments[0];
-                }
-
-                return ('get' == $action) ? $this->$name : $this;
-            }
-        }
-
-        return null;
-    }
-
-    /**
-     * Populates Class with array data.
-     * @param array $data
-     */
-    public function hydrate(array $data)
-    {
-        foreach ($data as $key => $value) {
-            $function = "set$key";
-            $this->{$function}($value);
-        }
-    }
 }
