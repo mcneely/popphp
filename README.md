@@ -1,10 +1,11 @@
 popphp
 ======
-
-This lists the current top PHP Projects on Github.
+Grabs the top PHP projects on Github and orders them Descending by stars. 
 
 Prerequisites
 -------------
+PHP >=5.5.9
+
 Install Mysql and set up a User. Either give the permissions to create the database or create the database and give it rights to update the schema.
 
 Install Composer, More at: https://getcomposer.org
