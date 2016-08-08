@@ -19,17 +19,18 @@ git clone git@github.com:mcneely/popphp.git
 Run the install.
 ```
 cd popphp
-composer install
+composer install --no-dev
 ```
 
 This assumes you installed globally. Otherwise:
 ```
 cd popphp
-composer.phar install
+composer.phar install --no-dev
 ```
 
 This will prompts you with a few questions. Enter in the database user information when prompted.
 When prompted, if you opted to go ahead and create the Database, enter the database name you created otherwise specify a database name to store the information or choose the default.
+Leaving off --no-dev installs extra development dependencies.
 
 If you opted to just create the user:
 ```
